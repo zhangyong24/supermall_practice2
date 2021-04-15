@@ -23,10 +23,11 @@ export default {
   height: 49px;
   width: 100%;
   display: flex;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   left: 0;
   box-shadow:0px -1px 0.5px 1px rgba(0, 0, 0, 0.03);
+  background-color: #fff;
 }
 </style>
