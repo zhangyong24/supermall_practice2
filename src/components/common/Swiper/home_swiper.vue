@@ -1,7 +1,7 @@
 <template>
   <swiper ref="mySwiper" :options="swiperOptions" >
     <swiperSlide v-for="(item,index) in banners" :key="index" class="swiper-slide">
-      <img :src="item.image" alt="">
+      <img :src="item.image" alt="" @load="swiperLoad">
     </swiperSlide>
         <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
@@ -55,7 +55,9 @@ export default {
   },
   watch: {},
   methods: {
-    
+    swiperLoad(){
+      this.$emit("swiperLoad")
+    }
   }
 }
 </script> 
