@@ -3,7 +3,7 @@
     <swiperSlide v-for="(item,index) in banners" :key="index" class="swiper-slide">
       <img :src="item.image" alt="" @load="swiperLoad">
     </swiperSlide>
-        <div class="swiper-pagination" slot="pagination"></div>
+      <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
 </template>
 
@@ -11,7 +11,7 @@
 import 'swiper/css/swiper.css'
 import { Swiper, SwiperSlide, directive} from 'vue-awesome-swiper'
 export default {
-  name: 'home_swiper',
+  name: 'universal_swiper',
   props: {
     banners:{
       type:Array,
@@ -52,6 +52,8 @@ export default {
    swiper() {
       return this.$refs.mySwiper.$swiper
      }
+
+    
   },
   watch: {},
   methods: {

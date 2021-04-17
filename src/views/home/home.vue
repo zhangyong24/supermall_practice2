@@ -9,7 +9,7 @@
   :titles='["流行","新款","精选"]'>
   </tab_control>
   <scroll ref="scroll" class="content" @probeType="probeType" @pullingUp="pullingUp">
-    <home_swiper :banners="banners" class="home-swiper" @swiperLoad="swiperLoad"></home_swiper>
+    <universal_swiper :banners="banners" class="home-swiper" @swiperLoad="swiperLoad"></universal_swiper>
     <recommend_view :recommends='recommends'></recommend_view>
     <featrue_view></featrue_view>
     <tab_control @tabControl="tabControl" :titles='["流行","新款","精选"]' ref="tabControl2"></tab_control>
@@ -21,7 +21,7 @@
 
 <script>
 import nav_bar from 'components/common/nav_bar/nav_bar'
-import home_swiper from 'components/common/Swiper/home_swiper'
+import universal_swiper from 'components/common/Swiper/universal_swiper'
 import scroll from 'components/common/scroll/scroll'
 import tab_control from 'components/content/tab_control/tab_control'
 import back_top from 'components/content/back_top/back_top'
@@ -35,7 +35,7 @@ export default {
   props: {},
   components: {
     nav_bar,
-    home_swiper,
+    universal_swiper,
     featrue_view,
     recommend_view,
     tab_control,
@@ -63,6 +63,7 @@ export default {
     this.getHomeData("pop")
     this.getHomeData("new")
     this.getHomeData("sell")
+    console.log(this.banners)
     
     
   },
@@ -72,7 +73,6 @@ export default {
       Refresh()
       
     })
-
   },
   computed: {},
   watch: {},
@@ -112,7 +112,12 @@ export default {
     //网络
     getHomeMultidata(){
       getHomeMultidata().then((res) =>{
-      this.banners = res.data.banner.list
+      let bannersNew = [] 
+      for (let index = 0; index < res.data.banner.list.length; index++) {
+          bannersNew.push(res.data.banner.list[index].image)
+          this.banners = bannersNew
+      }
+      // this.banners = res.data.banner.list
       this.recommends = res.data.recommend.list
       } )
     },

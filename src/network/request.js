@@ -10,7 +10,6 @@ export default function request(config){
     console.log(err);
   })
 
-  //2.响应拦截
   instance.interceptors.response.use(res => {
     return res.data
   }, err => {

@@ -1,5 +1,5 @@
 <template>
- <div class="goods-item">
+ <div class="goods-item" @click="goodsItemClick">
      <img :src="listData.show.img" alt="" @load="goodsLoad">
    <div class="text">
       <p class="title">{{listData.title}}</p>
@@ -12,8 +12,12 @@
 </template>
 
 <script>
+
 export default {
   name: 'goods_item',
+  mounted(){
+
+  },
   props:{
     listData:{
       type:Object,
@@ -31,8 +35,11 @@ export default {
   },
   watch: {},
   methods: {
-     goodsLoad(){
+    goodsLoad(){
       this.$bus.$emit("imgLoad")
+    },
+    goodsItemClick(){
+      this.$router.push("/detail/" + this.listData.iid)
     }
   }
 }
