@@ -1,6 +1,6 @@
 <template>
  <div class="goods-item" @click="goodsItemClick">
-     <img :src="listData.show.img" alt="" @load="goodsLoad">
+     <img :src="showImg" alt="" @load="goodsLoad">
    <div class="text">
       <p class="title">{{listData.title}}</p>
       <span class="price">{{"¥"+listData.price }}</span>
@@ -30,8 +30,13 @@ export default {
   data () {
     return {}
   },
+  created(){
+    console.log(this.listData3)
+  },
   computed: {
-   
+    showImg(){
+       return this.listData.image?this.listData.image:this.listData.show.img
+    }
   },
   watch: {},
   methods: {

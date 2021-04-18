@@ -17,6 +17,9 @@ export default {
       }
     }
   },
+  created(){
+    console.log(this.good)
+  },
   components: {
     goods_item
   },

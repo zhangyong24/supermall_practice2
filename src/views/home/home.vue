@@ -13,7 +13,7 @@
     <recommend_view :recommends='recommends'></recommend_view>
     <featrue_view></featrue_view>
     <tab_control @tabControl="tabControl" :titles='["流行","新款","精选"]' ref="tabControl2"></tab_control>
-    <goods :good="goods[goodsInit].list"></goods> 
+    <goods :good="goods[goodsInit].list" class="goods"></goods> 
   </scroll>
   <back_top v-show="backTopShow" class="back-top" @click.native="backClick"></back_top>
  </div>
@@ -63,7 +63,6 @@ export default {
     this.getHomeData("pop")
     this.getHomeData("new")
     this.getHomeData("sell")
-    console.log(this.banners)
     
     
   },
@@ -178,6 +177,9 @@ export default {
   position: relative;
   top: 44px;
   background-color: #fff;
+}
+.goods{
+  width: 100%;
 }
 
 </style>

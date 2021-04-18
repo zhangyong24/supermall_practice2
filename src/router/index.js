@@ -33,6 +33,7 @@ const routes = [
     path: '/detail/:iid',
     component: detail,
   }
+  
 ]
 
 const router = new VueRouter({
