@@ -55,7 +55,8 @@ export default {
       goodsInit:"pop",
       tabControlShow:false,
       backTopShow:false,
-      tabControlY:0
+      tabControlY:0,
+      activatedControlY:null
     }
   },
   created(){
@@ -72,6 +73,15 @@ export default {
       Refresh()
       
     })
+  },
+  deactivated(){
+    
+    this.activatedControlY = this.$refs.scroll.scroll.y
+  },
+  activated(){
+    this.$refs.scroll.refresh()
+    this.$refs.scroll.scroll.scrollTo(0,this.activatedControlY,0)
+
   },
   computed: {},
   watch: {},

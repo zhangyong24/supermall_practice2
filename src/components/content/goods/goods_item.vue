@@ -30,9 +30,6 @@ export default {
   data () {
     return {}
   },
-  created(){
-    console.log(this.listData3)
-  },
   computed: {
     showImg(){
        return this.listData.image?this.listData.image:this.listData.show.img
@@ -45,6 +42,7 @@ export default {
     },
     goodsItemClick(){
       this.$router.push("/detail/" + this.listData.iid)
+      
     }
   }
 }

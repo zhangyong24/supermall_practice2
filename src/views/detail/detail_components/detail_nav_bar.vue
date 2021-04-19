@@ -4,10 +4,8 @@
       <img src="~assets/img/common/back.svg" alt="">
     </div>
     <div class="nav-bar-center" slot="center">
-      <span>商品</span>
-      <span>参数</span>
-      <span>评论</span>
-      <span>推荐</span>
+      <span v-for="(item,index) in navBarArray" :key="index"  :class="{active:index === countisaction}"
+      @click="navBarCenterClick(index)">{{item}}</span>
     </div>
     <div class="nav-bar-right" slot="right"></div>
   </nav_bar>
@@ -22,13 +20,20 @@ export default {
     nav_bar
   },
   data () {
-    return {}
+    return {
+      navBarArray:["商品","参数","评论","推荐"],
+      countisaction:0
+    }
   },
   computed: {},
   watch: {},
   methods: {
-     navBarLeftClick(){
+    navBarLeftClick(){
       this.$router.go(-1)
+    },
+    navBarCenterClick(index){
+      this.countisaction = index
+      this.$emit('navBarCenterClick',index)
     }
   }
 }
@@ -55,6 +60,9 @@ export default {
 }
 .nav-bar-center span{
   flex: 1;
+}
+.active{
+  color:#ff5777;
 }
 </style>
 
