@@ -10,6 +10,8 @@
     <datail_comment_info :commentInfo="commentInfo" ref="commentInfo"></datail_comment_info>
     <goods :good="recommends" ref="goodInfo"></goods>
   </scroll>
+  <detail_bottom_bar @click.native="addCart"></detail_bottom_bar>
+  <back_top class="back-top" v-show="isBackTopShow" @click.native="backTopClick"></back_top>
  </div>
 </template>
 
@@ -24,6 +26,9 @@ import datail_shop_info from './detail_components/datail_shop_info'
 import datail_goods_info from './detail_components/datail_goods_info'
 import datail_Params_info from './detail_components/datail_Params_info'
 import datail_comment_info from './detail_components/datail_comment_info'
+import detail_bottom_bar from './detail_components/detail_bottom_bar'
+import back_top from 'components/content/back_top/back_top'
+
 import {debounce} from 'common/utils'
 import goods from 'components/content/goods/goods'
 
@@ -39,7 +44,9 @@ export default {
     datail_Params_info,
     datail_comment_info,
     scroll,
-    goods
+    goods,
+    detail_bottom_bar,
+    back_top
   },
   data () {
     return {
@@ -52,6 +59,7 @@ export default {
       commentInfo:{},
       recommends:[],
       skipArray:[],
+      isBackTopShow:false
     }
   },
   created(){
@@ -94,12 +102,27 @@ export default {
     }else if(-position.y >= this.skipArray[3]){
       this.$refs.navBar.countisaction = 3
     }
+    this.isBackTopShow = -position.y > 600
       
 
    },
    navBarCenterClick(index){
-     console.log(this.skipArray[index])
      this.$refs.scroll.scroll.scrollTo(0,-this.skipArray[index],300)
+   },
+   addCart(){
+      const product = {};
+      product.image = this.swiperImages[0];
+      product.title = this.detailInfo.title;
+      product.desc = this.detailInfo.desc;
+      product.oldPrice = this.detailInfo.oldPrice;
+      product.realPrice = this.detailInfo.newPrice
+      product.iid = this.iid;
+      this.$store.dispatch("AaddCart",product).then( res => this.$toast(res))
+     
+   },
+   backTopClick(){
+     this.$refs.scroll.scroll.scrollTo(0,0,300)
+     
    }
 
   }
@@ -124,6 +147,12 @@ export default {
   bottom: 49px;
   right: 0;
   left: 0;
+}
+.back-top{
+  position: fixed;
+  bottom: 55px;
+  right: 15px;
+  z-index: 6;
 }
 
 
