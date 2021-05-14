@@ -6,6 +6,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import FastClick from 'fastclick'
 import Vant from 'vant'
 import 'vant/lib/index.css'
+import 'vant/lib/index.less';
 
 
 

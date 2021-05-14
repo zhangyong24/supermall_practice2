@@ -54,4 +54,9 @@ a {
 .right {
   float: right;
 }
+.van-sidebar-item--select{
+  font-size: 14px;
+  font-weight: 700;
+  color: #ff5777;
+}
 
