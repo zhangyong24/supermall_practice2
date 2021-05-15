@@ -36,7 +36,7 @@ export default {
 }
 .category-item {
   text-align: center;
-  flex:1;
+  
 }
 .category-item span{
   font-size: 12px;

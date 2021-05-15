@@ -1,9 +1,9 @@
 <template>
   <swiper ref="mySwiper" :options="swiperOptions" >
     <swiperSlide v-for="(item,index) in banners" :key="index" class="swiper-slide">
-      <a :href="item.link">
-        <img :src="item.image" alt="" @load="swiperLoad">
-      </a>
+      
+        <img :src="item" alt="" @load="swiperLoad">
+      
       
       <!-- <img :src="item.image" alt="" @load="swiperLoad"> -->
     </swiperSlide>
@@ -15,7 +15,7 @@
 import 'swiper/css/swiper.css'
 import { Swiper, SwiperSlide, directive} from 'vue-awesome-swiper'
 export default {
-  name: 'universal_swiper',
+  name: 'detail_swiper',
   props: {
     banners:{
       type:Array,

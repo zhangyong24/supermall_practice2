@@ -2,10 +2,10 @@
  <div >
   <category_nav_bar class="nav-bar"></category_nav_bar>
   <scroll class="scroll">
-    <van-tree-select height="100%" :items="categoryItems"
-     :main-active-index.sync="active">
+    <van-tree-select  height="100%" :items="categoryItems"
+     :main-active-index.sync="active" @click-nav="changeActive">
        <template #content >
-         <div class="sub-category" v-for="(item,index) in subCategoryList" :key="index" @change="changeActive(active)">
+         <div class="sub-category" v-for="(item,index) in subCategoryList" :key="index" >
            <category_item :cateItem='item'></category_item>
          </div>
        </template>
@@ -54,17 +54,23 @@ export default {
         this.categoryMaitKey.push(item.maitKey)
       })
       this.categoryList = res.data.category.list
-      getSubCategoryData(this.categoryMaitKey[0]).then((res) => {
-      this.subCategoryList = res.data.list
-      
-      })
+      console.log(res.data.category.list)
+      this._getSubCategoryData(this.categoryMaitKey[0])
      
       })
-    }
-  },
-  changeActive(index){
-    console.log(index)
+    },
+    _getSubCategoryData(index){
+      getSubCategoryData(index).then((res) => {
+      this.subCategoryList = res.data.list
+      console.log(this.subCategoryList)
+      
+      })
+    },
+    changeActive(index){
+    this._getSubCategoryData(this.categoryMaitKey[index])
   }
+  }
+  
   
 }
 </script> 
@@ -105,8 +111,18 @@ export default {
   left: 0;
   z-index: 2;
 }
+.van-tree-select__content{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 5px;
+  align-content:flex-start;
+}
 .sub-category{
   display: flex;
+  flex: 1;
   width: 33%;
+  
+  
 }
 </style>

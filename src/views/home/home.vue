@@ -123,7 +123,7 @@ export default {
       getHomeMultidata().then((res) =>{
       let bannersNew = [] 
       for (let index = 0; index < res.data.banner.list.length; index++) {
-          bannersNew.push(res.data.banner.list[index].image)
+          bannersNew.push(res.data.banner.list[index])
           this.banners = bannersNew
       }
       // this.banners = res.data.banner.list

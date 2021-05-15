@@ -2,7 +2,7 @@
  <div class="detail">
   <detail_nav_bar class="detail-nav-bar" @navBarCenterClick='navBarCenterClick' ref="navBar"></detail_nav_bar>
   <scroll ref="scroll" class="content" @probeType="probeType">
-    <universal_swiper class="swiper" :banners="swiperImages"></universal_swiper>
+    <detail_swiper class="swiper" :banners="swiperImages"></detail_swiper>
     <datail_base_info :detailInfo="detailInfo"  ></datail_base_info>
     <datail_shop_info :shopInfo="shopInfo"  ></datail_shop_info>
     <datail_goods_info :goodsInfo="goodsInfo" @infoLoad="infoLoad" ></datail_goods_info>
@@ -10,23 +10,30 @@
     <datail_comment_info :commentInfo="commentInfo" ref="commentInfo"></datail_comment_info>
     <goods :good="recommends" ref="goodInfo"></goods>
   </scroll>
-  <detail_bottom_bar @click.native="addCart"></detail_bottom_bar>
+  <detail_bottom_bar @addCart="addCart"></detail_bottom_bar>
   <back_top class="back-top" v-show="isBackTopShow" @click.native="backTopClick"></back_top>
+  <van-action-sheet v-model="showSku" >
+    <div class="content">
+      <img :src="product.image" alt="">
+    </div>
+</van-action-sheet>
+  
  </div>
 </template>
 
 <script>
-import {getDetailData,getRecommend,detailData,shopData} from 'network/detail'
+import {getDetailData,getRecommend,detailData,shopData,showParam} from 'network/detail'
 import scroll from 'components/common/scroll/scroll'
 
 import detail_nav_bar from './detail_components/detail_nav_bar'
-import universal_swiper from 'components/common/Swiper/universal_swiper'
+import detail_swiper from 'components/common/Swiper/detail_swiper'
 import datail_base_info from './detail_components/datail_base_info'
 import datail_shop_info from './detail_components/datail_shop_info'
 import datail_goods_info from './detail_components/datail_goods_info'
 import datail_Params_info from './detail_components/datail_Params_info'
 import datail_comment_info from './detail_components/datail_comment_info'
 import detail_bottom_bar from './detail_components/detail_bottom_bar'
+
 import back_top from 'components/content/back_top/back_top'
 
 import {debounce} from 'common/utils'
@@ -36,7 +43,7 @@ export default {
   name: 'detail',
   props: {},
   components: {
-    universal_swiper,
+    detail_swiper,
     detail_nav_bar,
     datail_base_info,
     datail_shop_info,
@@ -46,7 +53,8 @@ export default {
     scroll,
     goods,
     detail_bottom_bar,
-    back_top
+    back_top,
+    
   },
   data () {
     return {
@@ -59,7 +67,12 @@ export default {
       commentInfo:{},
       recommends:[],
       skipArray:[],
-      isBackTopShow:false
+      isBackTopShow:false,
+      skuInfo:{},
+      product:{},
+      showSku:false
+      
+      
     }
   },
   created(){
@@ -69,6 +82,7 @@ export default {
       let data = res.result
       this.detailInfo = new detailData(data.itemInfo,data.columns,data.shopInfo.services,)
       this.shopInfo = new shopData(data.shopInfo)
+      this.skuInfo = new showParam(data.itemParams.info,data.skuInfo)
       this.goodsInfo = data.detailInfo
       this.itemParams = data.itemParams
       if(data.rate.cRate !== 0){
@@ -78,6 +92,7 @@ export default {
     })
     getRecommend().then(res => {
        this.recommends = res.data.list
+       
     })
   },
  
@@ -110,14 +125,19 @@ export default {
      this.$refs.scroll.scroll.scrollTo(0,-this.skipArray[index],300)
    },
    addCart(){
-      const product = {};
-      product.image = this.swiperImages[0];
-      product.title = this.detailInfo.title;
-      product.desc = this.detailInfo.desc;
-      product.oldPrice = this.detailInfo.oldPrice;
-      product.realPrice = this.detailInfo.newPrice
-      product.iid = this.iid;
-      this.$store.dispatch("AaddCart",product).then( res => this.$toast(res))
+      this.product.image = this.swiperImages[0];
+      this.product.title = this.detailInfo.title;
+      this.product.desc = this.detailInfo.desc;
+      this.product.oldPrice = this.detailInfo.oldPrice;
+      this.product.realPrice = this.detailInfo.newPrice
+      this.product.style = this.skuInfo.info[9]
+      this.product.colour = this.skuInfo.info[2]
+      this.product.size = this.skuInfo.info[10]
+      this.product.totalStock = this.skuInfo.totalStock
+      this.product.iid = this.iid;
+      this.showSku = true
+      
+      this.$store.dispatch("AaddCart",this.product).then( res => this.$toast(res))
      
    },
    backTopClick(){
@@ -153,6 +173,13 @@ export default {
   bottom: 55px;
   right: 15px;
   z-index: 6;
+}
+.van-action-sheet__content{
+  height: 300px;
+}
+.van-action-sheet__content img{
+  height: 150px;
+  margin-left: 15px;
 }
 
 
