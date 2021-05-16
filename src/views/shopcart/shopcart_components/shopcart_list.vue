@@ -6,9 +6,9 @@
 
 <script>
 
-import shopcart_list_item from "./shopcart_list_item.vue"
-import {mapGetters} from 'vuex'
 
+import {mapGetters} from 'vuex'
+import shopcart_list_item from "./shopcart_list_item.vue"
 export default {
   name: 'shopcart_list',
   props: {},

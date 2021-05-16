@@ -34,11 +34,3 @@ export class shopData{
     this.shopGoodsCount = shopInfo.cGoods;
   }
 }
-export class showParam{
-  constructor(info,skuInfo){
-      this.info = info.set,
-      this.totalStock = skuInfo.totalStock
-      
-
-  }
-}

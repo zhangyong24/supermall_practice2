@@ -12,17 +12,14 @@
   </scroll>
   <detail_bottom_bar @addCart="addCart"></detail_bottom_bar>
   <back_top class="back-top" v-show="isBackTopShow" @click.native="backTopClick"></back_top>
-  <van-action-sheet v-model="showSku" >
-    <div class="content">
-      <img :src="product.image" alt="">
-    </div>
-</van-action-sheet>
+  <detail_sku :product="product" @colourClick="colourClick" @sizeClick="sizeClick"></detail_sku>
+  
   
  </div>
 </template>
 
 <script>
-import {getDetailData,getRecommend,detailData,shopData,showParam} from 'network/detail'
+import {getDetailData,getRecommend,detailData,shopData} from 'network/detail'
 import scroll from 'components/common/scroll/scroll'
 
 import detail_nav_bar from './detail_components/detail_nav_bar'
@@ -33,6 +30,7 @@ import datail_goods_info from './detail_components/datail_goods_info'
 import datail_Params_info from './detail_components/datail_Params_info'
 import datail_comment_info from './detail_components/datail_comment_info'
 import detail_bottom_bar from './detail_components/detail_bottom_bar'
+import detail_sku from './detail_components/detail_sku'
 
 import back_top from 'components/content/back_top/back_top'
 
@@ -54,6 +52,7 @@ export default {
     goods,
     detail_bottom_bar,
     back_top,
+    detail_sku
     
   },
   data () {
@@ -69,8 +68,10 @@ export default {
       skipArray:[],
       isBackTopShow:false,
       skuInfo:{},
-      product:{},
-      showSku:false
+      product:{
+        showSku:false
+      },
+      
       
       
     }
@@ -80,9 +81,10 @@ export default {
     getDetailData(this.iid).then((res) => {
       this.swiperImages = res.result.itemInfo.topImages
       let data = res.result
+      
       this.detailInfo = new detailData(data.itemInfo,data.columns,data.shopInfo.services,)
       this.shopInfo = new shopData(data.shopInfo)
-      this.skuInfo = new showParam(data.itemParams.info,data.skuInfo)
+      this.skuInfo = data.skuInfo
       this.goodsInfo = data.detailInfo
       this.itemParams = data.itemParams
       if(data.rate.cRate !== 0){
@@ -130,20 +132,36 @@ export default {
       this.product.desc = this.detailInfo.desc;
       this.product.oldPrice = this.detailInfo.oldPrice;
       this.product.realPrice = this.detailInfo.newPrice
-      this.product.style = this.skuInfo.info[9]
-      this.product.colour = this.skuInfo.info[2]
-      this.product.size = this.skuInfo.info[10]
+      this.product.colourLabel = this.skuInfo.props[0].label
+      const colourName = []
+      this.skuInfo.props[0].list.forEach(item => {
+          colourName.push(item.name)
+      });
+      this.product.colourName = colourName
+      this.product.sizeLabel = this.skuInfo.props[1].label
+      const sizeName = []
+      this.skuInfo.props[1].list.forEach(item => {
+          sizeName.push(item.name)
+      })
+      this.product.sizeName = sizeName
       this.product.totalStock = this.skuInfo.totalStock
+      this.product.count = 0
       this.product.iid = this.iid;
-      this.showSku = true
-      
-      this.$store.dispatch("AaddCart",this.product).then( res => this.$toast(res))
-     
+      this.product.colourSelect = this.product.colourName[0]
+      this.product.sizeSelect = this.product.sizeName[0]
+      this.product.showSku = true
    },
    backTopClick(){
      this.$refs.scroll.scroll.scrollTo(0,0,300)
      
+   },
+   colourClick(index){
+     this.product.colourSelect = this.product.colourName[index]
+   },
+   sizeClick(index){
+     this.product.sizeSelect = this.product.sizeName[index]
    }
+   
 
   }
 }
@@ -174,13 +192,7 @@ export default {
   right: 15px;
   z-index: 6;
 }
-.van-action-sheet__content{
-  height: 300px;
-}
-.van-action-sheet__content img{
-  height: 150px;
-  margin-left: 15px;
-}
 
 
 </style>
+

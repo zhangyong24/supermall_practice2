@@ -31,10 +31,14 @@ export default {
     },
     getActive(){
       if(this.cartList.length === 0){
+        console.log("ds")
         return false
+      }else{
+        console.log('wo')
+        return this.cartList.filter( item => item.checked).length === this.cartList.length 
       }
-
-      return this.cartList.filter( item => item.checked).length === this.cartList.length 
+      
+      
       
       
     }
@@ -42,11 +46,17 @@ export default {
   watch: {},
   methods:{
     checkBtnClick(){
+      console.log(this.cartList.filter( item => item.checked).length === this.cartList.length )
+      console.log(this.cartList.length)
+      console.log(this.getActive)
       if(this.getActive){
-         this.cartList.forEach(item => item.checked = false)
-      }else{
-         this.cartList.forEach(item => item.checked = true)
+        return this.cartList.forEach(item => item.checked = false)
+         
+      }else if(!this.getActive){
+        return this.cartList.forEach(item => item.checked = true)
+         
       }
+      
     },
     calculateClick(){
       if(this.cartList.filter( item => item.checked).length === 0) this.$toast('未选择商品')

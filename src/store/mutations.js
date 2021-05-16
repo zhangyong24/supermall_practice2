@@ -1,11 +1,9 @@
 export default {
-  countAdd(state,oldCount){
-    oldCount.count = oldCount.count + 1
+  countAdd(state,payload){
+    payload.count++
   },
-  newPush(state,product){
-    product.count = 1
-    product.checked = true
-    state.cartList.push(product)
+  newPush(state,payload){
+    state.cartList.push(payload)
   }
   
 }

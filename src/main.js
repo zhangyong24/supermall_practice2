@@ -3,14 +3,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-import FastClick from 'fastclick'
+
 import Vant from 'vant'
 import 'vant/lib/index.css'
 
 
 
 
-FastClick.attach(document.body)
+
 Vue.config.productionTip = false
 Vue.use(VueAwesomeSwiper)
 Vue.prototype.$bus = new Vue()

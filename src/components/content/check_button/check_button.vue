@@ -1,5 +1,5 @@
 <template>
- <div class="check-button">
+ <div class="check-button" >
    <img src="~assets/img/cart/tick.svg" alt="" :class="{'active':isActive}">
  </div>
 </template>
@@ -23,6 +23,7 @@ export default {
   computed: {},
   watch: {},
   methods: {
+    
   }
 }
 </script> 

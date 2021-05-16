@@ -10,6 +10,8 @@
       <div class="item-info">
         <div class="item-title">{{itemProduct.title}}</div>
         <div class="item-desc">商品描述: {{itemProduct.desc}}</div>
+        <div class="item-desc">商品颜色: {{itemProduct.colourSelect}}</div>
+        <div class="item-desc">商品尺寸: {{itemProduct.sizeSelect}}</div>
         <div class="info-bottom">
           <div class="item-price left">¥{{itemProduct.realPrice}}</div>
           <div class="item-count right">x{{itemProduct.count}}</div>
@@ -44,7 +46,13 @@ export default {
   watch: {},
   methods: {
    checkBtnClick(){
-     return  this.itemProduct.checked = !this.itemProduct.checked
+      
+        this.itemProduct.checked = !this.itemProduct.checked
+        
+       
+
+      
+     
    }
   }
 }
@@ -94,9 +102,9 @@ export default {
 }
 
 .item-info .item-desc {
-  font-size: 14px;
+  font-size: 10px;
   color: #666;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 .info-bottom {
