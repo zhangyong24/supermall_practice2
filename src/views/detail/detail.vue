@@ -12,7 +12,7 @@
   </scroll>
   <detail_bottom_bar @addCart="addCart"></detail_bottom_bar>
   <back_top class="back-top" v-show="isBackTopShow" @click.native="backTopClick"></back_top>
-  <detail_sku :product="product" @colourClick="colourClick" @sizeClick="sizeClick"></detail_sku>
+  <detail_sku :product="product" ></detail_sku>
   
   
  </div>

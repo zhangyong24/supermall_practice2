@@ -39,20 +39,14 @@ export default {
   },
   data () {
     return {
-
+      
     }
   },
   computed: {},
   watch: {},
   methods: {
    checkBtnClick(){
-      
         this.itemProduct.checked = !this.itemProduct.checked
-        
-       
-
-      
-     
    }
   }
 }

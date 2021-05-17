@@ -1,6 +1,6 @@
 <template>
    <nav_bar >
-     <div slot="center" class="center"><span>购物车({{cartLength}})</span></div>
+     <div slot="center" class="center"><span>购物车({{getLength}})</span></div>
    </nav_bar>
 </template>
 
@@ -17,7 +17,7 @@ export default {
     return {}
   },
   computed: {
-  ...mapGetters(["cartLength"])
+  ...mapGetters(["getLength"])
 
   },
   watch: {},

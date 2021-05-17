@@ -5,6 +5,7 @@
     cancel-text="确定"
     close-on-click-action
     @cancel="onCancel"
+    :closeable="false" 
     
     
   >
@@ -39,7 +40,8 @@
         </div>
         <div class="amount">
           <p>数量</p>
-          <van-stepper v-model="product.count" @plus="addPlus"  @minus="minusPlus"/>
+          <van-stepper v-model="product.count" @plus="addPlus"  @minus="minusPlus" 
+          input-width="30px" button-size="20px"/>
         </div>
       </div>
     </div>
@@ -63,7 +65,8 @@ export default {
   data() {
     return {
       colourCount:0,
-      sizeCount:0
+      sizeCount:0,
+      cateCount:0
     };
   },
   computed: {},
@@ -77,11 +80,11 @@ export default {
     },
     colourClick(index){
       this.colourCount = index
-      this.$emit("colourClick",index)
+      this.product.colourSelect = this.product.colourName[index]
     },
     sizeClick(index){
       this.sizeCount = index
-      this.$emit("sizeClick",index)
+      this.product.sizeSelect = this.product.sizeName[index]
     },
     onCancel(){
       this.product.checked = true
