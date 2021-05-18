@@ -81,10 +81,10 @@ export default {
     getDetailData(this.iid).then((res) => {
       this.swiperImages = res.result.itemInfo.topImages
       let data = res.result
-      
       this.detailInfo = new detailData(data.itemInfo,data.columns,data.shopInfo.services,)
       this.shopInfo = new shopData(data.shopInfo)
       this.skuInfo = data.skuInfo
+      console.log(data.skuInfo,"sku")
       this.goodsInfo = data.detailInfo
       this.itemParams = data.itemParams
       if(data.rate.cRate !== 0){

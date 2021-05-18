@@ -39,9 +39,11 @@
           </div>
         </div>
         <div class="amount">
-          <p>数量</p>
-          <van-stepper v-model="product.count" @plus="addPlus"  @minus="minusPlus" 
+          <div>数量:</div>
+          <div class="stepper">
+            <van-stepper v-model="product.count" @plus="addPlus"  @minus="minusPlus" 
           input-width="30px" button-size="20px"/>
+          </div>
         </div>
       </div>
     </div>
@@ -49,6 +51,7 @@
 </template>
 
 <script>
+import {dataProduct} from 'network/detail'
 export default {
   name: "detail_sku",
   props: {
@@ -73,10 +76,12 @@ export default {
   watch: {},
   methods: {
     addPlus(){
-      return this.product.count++
+      return  this.product.count++
+      
     },
     minusPlus(){
-      return this.product.count--
+      return  this.product.count--
+     
     },
     colourClick(index){
       this.colourCount = index
@@ -87,9 +92,9 @@ export default {
       this.product.sizeSelect = this.product.sizeName[index]
     },
     onCancel(){
-      this.product.checked = true
-      console.log(this.product)
-      this.$store.dispatch("AaddCart",this.product).then( res => this.$toast(res))
+      const nowProduct = new dataProduct(this.product)
+      console.log(nowProduct)
+      this.$store.dispatch("addCart",nowProduct).then( res => this.$toast(res))
     }
   },
 };
@@ -187,8 +192,13 @@ export default {
   
 }
 .sku-bottom .amount{
-  margin-top: 25px;
+  margin: 25px 0 0 12px;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 16px;
 }
+
+
 .sku-bottom .amount p{
   margin-left: 10px;
   font-size: 16px;
@@ -214,4 +224,5 @@ export default {
   background-color: #ff8198  !important;
   color: #fff;
 }
+
 </style>

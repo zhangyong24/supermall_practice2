@@ -34,3 +34,21 @@ export class shopData{
     this.shopGoodsCount = shopInfo.cGoods;
   }
 }
+export class dataProduct{
+  constructor(product){
+    this.image = product.image
+    this.title = product.title
+    this.desc = product.desc
+    this.oldPrice = product.oldPrice
+    this.realPrice = product.realPrice
+    this.colourLabel = product.colourLabel
+    this.colourSelect = product.colourSelect
+    this.sizeLabel = product.sizeLabel
+    this.sizeSelect = product.sizeSelect
+    this.totalStock = product.totalStock
+    this.count = product.count
+    this.iid = product.iid
+    this.checked = true
+    
+  }
+}
